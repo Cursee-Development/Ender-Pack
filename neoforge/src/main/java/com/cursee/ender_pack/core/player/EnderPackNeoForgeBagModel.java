@@ -16,7 +16,6 @@ import net.minecraft.world.entity.Entity;
 
 public class EnderPackNeoForgeBagModel<T extends Entity> extends EntityModel<T>
 {
-	public static final ResourceLocation ENDERPACK_TEXTURE = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "textures/entity/ender_pack.png");
 	
 	private final ModelPart ender_pack;
 	

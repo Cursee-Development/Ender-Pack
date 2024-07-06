@@ -2,11 +2,14 @@ package com.cursee.ender_pack.core.player;
 
 import com.cursee.ender_pack.EnderPackClient;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.npc.Villager;
@@ -26,7 +29,7 @@ public class EnderPackNeoForgeLayer<T extends LivingEntity, M extends HumanoidMo
   }
   
   @Override
-  public void render(PoseStack matrixStack, MultiBufferSource buffer, int lightness, T entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+  public void render(PoseStack poseStack, MultiBufferSource bufferSource, int lightness, T entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
     
     boolean flag = false;
     
@@ -38,12 +41,15 @@ public class EnderPackNeoForgeLayer<T extends LivingEntity, M extends HumanoidMo
     
     if (flag) {
     
-      matrixStack.pushPose();
-      matrixStack.translate(0.0d, 0.25d, 0.3125d);
+      poseStack.pushPose();
+      poseStack.translate(0.0d, 0.25d, 0.3125d);
 
-      renderColoredCutoutModel(bagModel, getTextureLocation(entity), matrixStack, buffer, lightness, entity, 1);
+//      renderColoredCutoutModel(bagModel, getTextureLocation(entity), poseStack, bufferSource, lightness, entity, 1);
+
+      VertexConsumer test = bufferSource.getBuffer(RenderType.entityCutoutNoCull(EnderPackClient.ENDER_PACK_TEXTURE));
+      this.bagModel.renderToBuffer(poseStack, test, lightness, OverlayTexture.NO_OVERLAY);
     
-      matrixStack.popPose();
+      poseStack.popPose();
     }
     
   }
@@ -51,7 +57,7 @@ public class EnderPackNeoForgeLayer<T extends LivingEntity, M extends HumanoidMo
   @Override
   protected @NotNull ResourceLocation getTextureLocation(T pEntity)
   {
-    return EnderPackNeoForgeBagModel.ENDERPACK_TEXTURE;
+    return EnderPackClient.ENDER_PACK_TEXTURE;
   }
   
   private void translateToBody(LivingEntity entity, PoseStack poseStack)

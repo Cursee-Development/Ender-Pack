@@ -16,7 +16,7 @@ import net.minecraft.world.entity.Entity;
 
 public class EnderPackFabricBagModel<T extends Entity> extends EntityModel<T>
 {
-	public static final ResourceLocation ENDERPACK_TEXTURE = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "textures/entity/ender_pack.png");
+	// public static final ResourceLocation ENDERPACK_TEXTURE = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "textures/entity/ender_pack.png");
 	
 	private final ModelPart ender_pack;
 	
@@ -55,7 +55,7 @@ public class EnderPackFabricBagModel<T extends Entity> extends EntityModel<T>
 
 	@Override
 	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLightIn, int j, int k) {
-		this.ender_pack.render(poseStack, vertexConsumer, packedLightIn, 1, 1);
+		this.ender_pack.render(poseStack, vertexConsumer, packedLightIn, j, k);
 	}
 
 	@Override
