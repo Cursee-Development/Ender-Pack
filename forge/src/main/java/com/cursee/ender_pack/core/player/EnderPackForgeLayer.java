@@ -46,8 +46,10 @@ public class EnderPackForgeLayer<T extends LivingEntity, M extends HumanoidModel
 
 //      renderColoredCutoutModel(bagModel, getTextureLocation(entity), poseStack, bufferSource, lightness, entity, 1);
 
-      VertexConsumer test = bufferSource.getBuffer(RenderType.entityCutoutNoCull(EnderPackClient.ENDER_PACK_TEXTURE));
-      this.bagModel.renderToBuffer(poseStack, test, lightness, OverlayTexture.NO_OVERLAY);
+//      VertexConsumer test = bufferSource.getBuffer(RenderType.entityCutoutNoCull(EnderPackClient.ENDER_PACK_TEXTURE));
+//      this.bagModel.renderToBuffer(poseStack, test, lightness, OverlayTexture.NO_OVERLAY);
+
+      this.bagModel.renderToBuffer(poseStack, bufferSource.getBuffer(RenderType.entitySolid(EnderPackClient.ENDER_PACK_TEXTURE)), lightness, OverlayTexture.NO_OVERLAY, -1);
     
       poseStack.popPose();
     }

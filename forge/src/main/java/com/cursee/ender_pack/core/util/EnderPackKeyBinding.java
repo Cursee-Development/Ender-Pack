@@ -6,8 +6,8 @@ import net.minecraftforge.client.settings.KeyConflictContext;
 import org.lwjgl.glfw.GLFW;
 
 public class EnderPackKeyBinding {
-  public static final String KEY_NAME = "key.enderpack.toggle";
-  public static final String KEY_CATEGORY = "key.category.enderpack.access";
+  public static final String KEY_NAME = "key.ender_pack.toggle";
+  public static final String KEY_CATEGORY = "key.category.ender_pack.access";
   
   public static final KeyMapping ENDER_PACK_KEY_MAPPING = new KeyMapping(
     KEY_NAME,

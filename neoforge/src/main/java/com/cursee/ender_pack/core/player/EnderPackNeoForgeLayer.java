@@ -1,6 +1,7 @@
 package com.cursee.ender_pack.core.player;
 
 import com.cursee.ender_pack.EnderPackClient;
+import com.cursee.ender_pack.core.EnderPackNeoForgeRegistry;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
@@ -15,7 +16,10 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.client.model.pipeline.VertexConsumerWrapper;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class EnderPackNeoForgeLayer<T extends LivingEntity, M extends HumanoidModel<T>> extends RenderLayer<T, M> {
   
@@ -28,32 +32,73 @@ public class EnderPackNeoForgeLayer<T extends LivingEntity, M extends HumanoidMo
     bagModel = new EnderPackNeoForgeBagModel<>(Minecraft.getInstance().getEntityModels().bakeLayer(EnderPackClient.ENDER_PACK_LAYER));
   }
   
+//  @Override
+//  public void render(PoseStack poseStack, MultiBufferSource bufferSource, int lightness, T entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+//
+//    boolean flag = false;
+//
+//    for (ItemStack itemStack : ((Player) entity).getInventory().armor) {
+//      if (itemStack.getItem().getDefaultInstance().getDisplayName().getString().toLowerCase().contains("ender pack")) {
+//        flag = true;
+//      }
+//    }
+//
+//    if (flag) {
+//
+//      poseStack.pushPose();
+//      poseStack.translate(0.0d, 0.25d, 0.3125d);
+//
+////      renderColoredCutoutModel(bagModel, getTextureLocation(entity), poseStack, bufferSource, lightness, entity, 1);
+//
+//      VertexConsumer test = bufferSource.getBuffer(RenderType.entityCutoutNoCull(EnderPackClient.ENDER_PACK_TEXTURE));
+//      this.bagModel.renderToBuffer(poseStack, test, lightness, OverlayTexture.NO_OVERLAY);
+//
+//      poseStack.popPose();
+//    }
+//
+//  }
+
+
   @Override
-  public void render(PoseStack poseStack, MultiBufferSource bufferSource, int lightness, T entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-    
-    boolean flag = false;
-    
-    for (ItemStack itemStack : ((Player) entity).getInventory().armor) {
-      if (itemStack.getItem().getDefaultInstance().getDisplayName().getString().toLowerCase().contains("ender pack")) {
-        flag = true;
-      }
-    }
-    
-    if (flag) {
-    
-      poseStack.pushPose();
-      poseStack.translate(0.0d, 0.25d, 0.3125d);
+  public void render(@NotNull PoseStack poseStack, @NotNull MultiBufferSource multiBufferSource, int lightness, @NotNull T entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 
-//      renderColoredCutoutModel(bagModel, getTextureLocation(entity), poseStack, bufferSource, lightness, entity, 1);
+    final Player player = (Player) entity;
 
-      VertexConsumer test = bufferSource.getBuffer(RenderType.entityCutoutNoCull(EnderPackClient.ENDER_PACK_TEXTURE));
-      this.bagModel.renderToBuffer(poseStack, test, lightness, OverlayTexture.NO_OVERLAY);
-    
-      poseStack.popPose();
-    }
-    
+    final AtomicBoolean foundBackpackOnPlayer = new AtomicBoolean(false);
+
+    player.getArmorSlots().forEach(itemStack -> {
+      if (itemStack.is(EnderPackNeoForgeRegistry.ENDERPACK.get())) foundBackpackOnPlayer.set(true);
+    });
+
+    player.getInventory().armor.forEach(itemStack -> {
+      if (itemStack.is(EnderPackNeoForgeRegistry.ENDERPACK.get())) foundBackpackOnPlayer.set(true);
+    });
+
+    if (!foundBackpackOnPlayer.get()) return;
+
+    poseStack.pushPose();
+
+    poseStack.translate(0.0d, 0.25d, 0.3125d);
+
+//    VertexConsumerWrapper wrapper = new VertexConsumerWrapper(multiBufferSource.getBuffer(RenderType.entityCutoutNoCull(EnderPackClient.ENDER_PACK_TEXTURE))) {
+//      @Override
+//      public VertexConsumer addVertex(float x, float y, float z) {
+//        return super.addVertex(0, 0, 0);
+//      }
+//
+//      @Override
+//      public VertexConsumer setUv(float u, float v) {
+//        return super.setUv(0, 0);
+//      }
+//    };
+
+//    this.bagModel.renderToBuffer(poseStack, multiBufferSource.getBuffer(RenderType.entityCutoutNoCull(EnderPackClient.ENDER_PACK_TEXTURE)), lightness, OverlayTexture.NO_OVERLAY);
+    this.bagModel.renderToBuffer(poseStack, multiBufferSource.getBuffer(RenderType.entitySolid(EnderPackClient.ENDER_PACK_TEXTURE)), lightness, OverlayTexture.NO_OVERLAY, -1);
+
+    poseStack.popPose();
+
   }
-  
+
   @Override
   protected @NotNull ResourceLocation getTextureLocation(T pEntity)
   {

@@ -12,6 +12,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ChestMenu;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 public class EnderPackNeoForgeC2SPacket implements CustomPacketPayload {
 
 	public static final Type<EnderPackNeoForgeC2SPacket> TYPE = new Type<EnderPackNeoForgeC2SPacket>(ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "teleport"));
@@ -39,7 +41,22 @@ public class EnderPackNeoForgeC2SPacket implements CustomPacketPayload {
 //		});
 
 		player.getServer().execute(() -> {
-			if (player.getInventory().contains(EnderPackNeoForgeRegistry.ENDERPACK.get().getDefaultInstance())) {
+
+			AtomicBoolean shouldOpen = new AtomicBoolean(false);
+
+			player.getInventory().armor.forEach(itemStack -> {
+				if (itemStack.is(EnderPackNeoForgeRegistry.ENDERPACK.get())) {
+					shouldOpen.set(true);
+				}
+			});
+
+			player.getInventory().items.forEach(itemStack -> {
+				if (itemStack.is(EnderPackNeoForgeRegistry.ENDERPACK.get())) {
+					shouldOpen.set(true);
+				}
+			});
+
+			if (shouldOpen.get()) {
 				player.openMenu(new SimpleMenuProvider((p_53124_, p_53125_, p_53126_) -> {
 					return ChestMenu.threeRows(p_53124_, p_53125_, player.getEnderChestInventory());
 				}, Component.translatable("container.ender_pack")));

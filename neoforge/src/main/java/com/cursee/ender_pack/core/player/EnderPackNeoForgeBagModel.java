@@ -52,9 +52,15 @@ public class EnderPackNeoForgeBagModel<T extends Entity> extends EntityModel<T>
 	}
 
 
+//	@Override
+//	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLightIn, int j, int k) {
+//		this.ender_pack.render(poseStack, vertexConsumer, packedLightIn, 1, 1);
+//	}
+
+
 	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLightIn, int j, int k) {
-		this.ender_pack.render(poseStack, vertexConsumer, packedLightIn, 1, 1);
+	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int i, int i1, int i2) {
+		this.ender_pack.render(poseStack, vertexConsumer, i, i1, i2);
 	}
 
 	@Override

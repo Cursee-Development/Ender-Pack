@@ -54,7 +54,8 @@ public class EnderPackForgeBagModel<T extends Entity> extends EntityModel<T>
 
 	@Override
 	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLightIn, int j, int k) {
-		this.ender_pack.render(poseStack, vertexConsumer, packedLightIn, 1, 1);
+//		this.ender_pack.render(poseStack, vertexConsumer, packedLightIn, 1, 1);
+		this.ender_pack.render(poseStack, vertexConsumer, packedLightIn, j, k);
 	}
 
 	@Override

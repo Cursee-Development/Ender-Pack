@@ -30,6 +30,12 @@ public class EnderPackFabricC2SPacket implements CustomPacketPayload {
         if (player != null) {
             boolean shouldOpen = false;
 
+            for (ItemStack stack : player.getInventory().armor) {
+                if (stack.getItem() instanceof EnderPackFabricItem) {
+                    shouldOpen = true;
+                }
+            }
+
             for (ItemStack stack : player.getInventory().items) {
                 if (stack.getItem() instanceof EnderPackFabricItem) {
                     shouldOpen = true;
