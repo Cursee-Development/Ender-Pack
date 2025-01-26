@@ -16,10 +16,10 @@
     "environment": "*",
     "entrypoints": {
         "main": [
-            "com.cursee.examplemod.ExampleModFabric"
+            "com.cursee.ender_pack.EnderPackFabric"
         ],
         "client": [
-            "com.cursee.examplemod.ExampleModClientFabric"
+            "com.cursee.ender_pack.EnderPackClientFabric"
         ]
     },
     "mixins": [
