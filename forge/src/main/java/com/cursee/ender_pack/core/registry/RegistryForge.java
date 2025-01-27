@@ -1,6 +1,7 @@
 package com.cursee.ender_pack.core.registry;
 
 import com.cursee.ender_pack.Constants;
+import com.cursee.ender_pack.EnderPackForge;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -45,7 +46,7 @@ public class RegistryForge {
     }
 
     private static <T> void bind(ResourceKey<Registry<T>> registry, Consumer<BiConsumer<T, ResourceLocation>> source) {
-        FMLJavaModLoadingContext.get().getModEventBus().addListener((RegisterEvent event) -> {
+        EnderPackForge.EVENT_BUS.addListener((RegisterEvent event) -> {
             if (registry.equals(event.getRegistryKey())) {
                 source.accept((t, rl) -> event.register(registry, rl, () -> t));
             }
@@ -54,7 +55,7 @@ public class RegistryForge {
 
     private static final Set<Item> CREATIVE_MODE_TAB_ITEMS = new LinkedHashSet<>();
     private static void bindForItems(Consumer<BiConsumer<Item, ResourceLocation>> source) {
-        FMLJavaModLoadingContext.get().getModEventBus().addListener((RegisterEvent event) -> {
+        EnderPackForge.EVENT_BUS.addListener((RegisterEvent event) -> {
             if (event.getRegistryKey().equals(Registries.ITEM)) {
                 source.accept((t, rl) -> {
                     CREATIVE_MODE_TAB_ITEMS.add(t);
