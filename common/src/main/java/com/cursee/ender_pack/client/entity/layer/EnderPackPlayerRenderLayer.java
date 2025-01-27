@@ -3,10 +3,10 @@ package com.cursee.ender_pack.client.entity.layer;
 import com.cursee.ender_pack.EnderPackClient;
 import com.cursee.ender_pack.client.model.EnderPackModel;
 import com.cursee.ender_pack.core.registry.ModItems;
+import com.cursee.ender_pack.platform.Services;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
@@ -42,7 +42,9 @@ public class EnderPackPlayerRenderLayer<T extends LivingEntity, M extends Entity
             if (stack.is(ModItems.ENDER_PACK)) SHOULD_RENDER_BAG.set(true);
         });
 
-        // todo implement service check for trinkets/curios slot
+        if (Services.PLATFORM.isModLoaded("curios") || Services.PLATFORM.isModLoaded("trinkets")) {
+            if (Services.PLATFORM.checkCompatibleSlots(player)) SHOULD_RENDER_BAG.set(true);
+        }
 
         if (!SHOULD_RENDER_BAG.get()) return;
 

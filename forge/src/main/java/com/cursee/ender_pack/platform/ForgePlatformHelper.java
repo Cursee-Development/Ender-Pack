@@ -1,7 +1,9 @@
 package com.cursee.ender_pack.platform;
 
+import com.cursee.ender_pack.core.registry.ModItems;
 import com.cursee.ender_pack.platform.services.IPlatformHelper;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -9,7 +11,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.fml.loading.FMLPaths;
+import top.theillusivec4.curios.api.CuriosApi;
 
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.BiFunction;
 
 public class ForgePlatformHelper implements IPlatformHelper {
@@ -42,5 +46,17 @@ public class ForgePlatformHelper implements IPlatformHelper {
     public <T extends BlockEntity> BlockEntityType<T> createBlockEntityType(BiFunction<BlockPos, BlockState, T> func, Block... blocks) {
 
         return BlockEntityType.Builder.of(func::apply, blocks).build(null);
+    }
+
+    @Override
+    public boolean checkCompatibleSlots(Player player) {
+
+        final AtomicBoolean FOUND = new AtomicBoolean(false);
+
+        CuriosApi.getCuriosInventory(player).ifPresent(component -> {
+            if (component.isEquipped(ModItems.ENDER_PACK)) FOUND.set(true);
+        });
+
+        return FOUND.get();
     }
 }
