@@ -26,7 +26,9 @@ public class ModPacketHandler {
         if (player.getItemBySlot(EquipmentSlot.MAINHAND).is(ModItems.ENDER_PACK)) SHOULD_OPEN.set(true);
         if (player.getItemBySlot(EquipmentSlot.OFFHAND).is(ModItems.ENDER_PACK)) SHOULD_OPEN.set(true);
 
-        if (Services.PLATFORM.checkCompatibleSlots(player)) SHOULD_OPEN.set(true);
+        if (Services.PLATFORM.isModLoaded("trinkets") || Services.PLATFORM.isModLoaded("curios")) {
+            if (Services.PLATFORM.checkCompatibleSlots(player)) SHOULD_OPEN.set(true);
+        }
 
         if (!SHOULD_OPEN.get()) return;
 
