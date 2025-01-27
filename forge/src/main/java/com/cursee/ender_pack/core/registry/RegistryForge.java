@@ -21,6 +21,8 @@ public class RegistryForge {
             ModBlocks.register(consumer);
         });
         bindForItems(ModItems::register);
+
+        bind(Registries.BLOCK_ENTITY_TYPE, ModBlockEntities::register);
     }
 
     private static <T> void bind(ResourceKey<Registry<T>> registry, Consumer<BiConsumer<T, ResourceLocation>> source) {
