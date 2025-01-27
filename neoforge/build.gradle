@@ -3,6 +3,10 @@ plugins {
     id 'net.neoforged.moddev'
 }
 
+repositories {
+    maven { url "https://maven.theillusivec4.top/" }
+}
+
 neoForge {
     version = neoforge_version
     // Automatically enable neoforge AccessTransformers if the file exists
@@ -36,6 +40,9 @@ neoForge {
     }
     dependencies {
         implementation "curse.maven:monolib-968432:6123990"
+
+        compileOnly("top.theillusivec4.curios:curios-neoforge:9.2.2+1.21.1:api")
+        runtimeOnly("top.theillusivec4.curios:curios-neoforge:9.2.2+1.21.1")
     }
 }
 
