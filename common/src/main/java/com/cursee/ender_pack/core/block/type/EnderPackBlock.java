@@ -85,7 +85,7 @@ public class EnderPackBlock extends BaseEntityBlock implements IRotatable {
 
         if (player.isShiftKeyDown()) {
             level.destroyBlock(pos, false);
-            level.addFreshEntity(new ItemEntity(level, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(ModItems.ENDER_PACK)));
+            if (!player.isCreative()) level.addFreshEntity(new ItemEntity(level, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(ModItems.ENDER_PACK)));
             return InteractionResult.PASS;
         }
 
