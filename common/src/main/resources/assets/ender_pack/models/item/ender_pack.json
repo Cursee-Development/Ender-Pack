@@ -1,0 +1,10 @@
+{
+  "parent": "ender_pack:block/ender_pack_block",
+  "display": {
+    "gui": {
+      "rotation": [ 25, 45, 0],
+      "translation": [ 0, 1, 0],
+      "scale": [ 0.9, 0.9, 0.9]
+    }
+  }
+}
