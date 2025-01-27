@@ -16,5 +16,7 @@ public class Constants {
 	public static final String MOD_PUBLISHER = "Lupin";
 	public static final String MOD_URL = "https://www.curseforge.com/minecraft/mc-mods/enderpack";
 	public static final ResourceKey<CreativeModeTab> ENDER_PACK_TAB_KEY = ResourceKey.create(Registries.CREATIVE_MODE_TAB, EnderPack.identifier("ender_pack"));
+	public static final String KEY_NAME = "key.ender_pack.toggle";
+	public static final String KEY_CATEGORY = "key.category.ender_pack.access";
 	public static final Logger LOG = LoggerFactory.getLogger(MOD_NAME);
 }
