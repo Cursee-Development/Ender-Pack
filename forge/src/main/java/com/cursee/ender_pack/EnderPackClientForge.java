@@ -1,7 +1,7 @@
 package com.cursee.ender_pack;
 
 import com.cursee.ender_pack.client.block.entity.renderer.EnderPackBlockEntityRenderer;
-import com.cursee.ender_pack.client.entity.layer.EnderPackPlayerRenderLayer;
+import com.cursee.ender_pack.client.layer.EnderPackLayer;
 import com.cursee.ender_pack.client.model.EnderPackModel;
 import com.cursee.ender_pack.core.ClientConfigForge;
 import com.cursee.ender_pack.core.network.ModMessagesForge;
@@ -53,8 +53,8 @@ public class EnderPackClientForge {
 
         @SubscribeEvent
         public static void onAddLayersForEntityRenderers(EntityRenderersEvent.AddLayers event) {
-            EnderPackClientForge.addLayerToPlayerSkin(event, "default", EnderPackPlayerRenderLayer::new);
-            EnderPackClientForge.addLayerToPlayerSkin(event, "slim", EnderPackPlayerRenderLayer::new);
+            EnderPackClientForge.addLayerToPlayerSkin(event, "default", EnderPackLayer::new);
+            EnderPackClientForge.addLayerToPlayerSkin(event, "slim", EnderPackLayer::new);
         }
     }
 

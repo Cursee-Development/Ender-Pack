@@ -47,7 +47,7 @@ public class EnderPackModel extends EntityModel<Player> {
 
     public static LayerDefinition createBodyLayer() {
         MeshDefinition meshdefinition = new MeshDefinition();
-        meshdefinition.getRoot().addOrReplaceChild("ender_pack", builder(), PartPose.offsetAndRotation(-1.0F, -4.0F, 10.0F, 0.0F, 0.0F, 0.0F));
+        meshdefinition.getRoot().addOrReplaceChild("ender_pack", builder(), PartPose.offset(0, 0, 0));
         return LayerDefinition.create(meshdefinition, 64, 64);
     }
 
