@@ -35,7 +35,7 @@ dependencies {
     modApi include("dev.onyxstudios.cardinal-components-api:cardinal-components-entity:5.2.0")
 
     // Trinkets
-    modImplementation "dev.emi:trinkets:3.7.2"
+    modImplementation "dev.emi:trinkets:3.7.1"
 }
 
 loom {
