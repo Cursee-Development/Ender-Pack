@@ -2,6 +2,8 @@ package com.cursee.ender_pack.client.entity.layer;
 
 import com.cursee.ender_pack.EnderPackClient;
 import com.cursee.ender_pack.client.model.EnderPackModel;
+import com.cursee.ender_pack.core.ClientConfiguredValues;
+import com.cursee.ender_pack.core.ServerConfiguredValues;
 import com.cursee.ender_pack.core.registry.ModItems;
 import com.cursee.ender_pack.platform.Services;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -39,11 +41,11 @@ public class EnderPackPlayerRenderLayer<T extends LivingEntity, M extends Entity
         final AtomicBoolean SHOULD_RENDER_BAG = new AtomicBoolean(false);
 
         player.getInventory().armor.forEach(stack -> {
-            if (stack.is(ModItems.ENDER_PACK)) SHOULD_RENDER_BAG.set(true);
+            if (stack.is(ModItems.ENDER_PACK)) SHOULD_RENDER_BAG.set(ClientConfiguredValues.RENDERS_IN_ARMOR_SLOT); // originally would be true, now is configurable
         });
 
         if (Services.PLATFORM.isModLoaded("curios") || Services.PLATFORM.isModLoaded("trinkets")) {
-            if (Services.PLATFORM.checkCompatibleSlots(player)) SHOULD_RENDER_BAG.set(true);
+            if (Services.PLATFORM.checkCompatibleSlots(player)) SHOULD_RENDER_BAG.set(ClientConfiguredValues.RENDERS_IN_EXTRA_SLOT); // originally would be true, now is configurable
         }
 
         if (!SHOULD_RENDER_BAG.get()) return;

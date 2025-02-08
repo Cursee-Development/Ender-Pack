@@ -3,6 +3,7 @@ package com.cursee.ender_pack;
 import com.cursee.ender_pack.client.block.entity.renderer.EnderPackBlockEntityRenderer;
 import com.cursee.ender_pack.client.entity.layer.EnderPackPlayerRenderLayer;
 import com.cursee.ender_pack.client.model.EnderPackModel;
+import com.cursee.ender_pack.core.ClientConfigForge;
 import com.cursee.ender_pack.core.network.ModMessagesForge;
 import com.cursee.ender_pack.core.network.input.OpenEnderPackKeyForge;
 import com.cursee.ender_pack.core.network.packet.ForgeOpenEnderPackC2SPacket;
@@ -31,6 +32,7 @@ public class EnderPackClientForge {
         public static void onClientSetup(final FMLClientSetupEvent event) {
             event.enqueueWork(() -> {
                 EnderPackClient.init();
+                ClientConfigForge.onLoad();
             });
         }
 

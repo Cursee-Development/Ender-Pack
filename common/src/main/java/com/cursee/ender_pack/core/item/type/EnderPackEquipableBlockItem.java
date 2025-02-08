@@ -1,5 +1,6 @@
 package com.cursee.ender_pack.core.item.type;
 
+import com.cursee.ender_pack.core.ServerConfiguredValues;
 import com.cursee.ender_pack.core.block.type.EnderPackBlock;
 import com.cursee.ender_pack.core.registry.ModBlocks;
 import net.minecraft.core.BlockPos;
@@ -28,8 +29,8 @@ public class EnderPackEquipableBlockItem extends BlockItem implements Equipable 
     }
 
     @Override
-    public @NotNull EquipmentSlot getEquipmentSlot() {
-        return EquipmentSlot.CHEST;
+    public EquipmentSlot getEquipmentSlot() {
+        return ServerConfiguredValues.EXTRA_SLOT_ONLY ? null : EquipmentSlot.CHEST;
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.cursee.ender_pack;
 import com.cursee.ender_pack.client.block.entity.renderer.EnderPackBlockEntityRenderer;
 import com.cursee.ender_pack.client.entity.layer.EnderPackPlayerRenderLayer;
 import com.cursee.ender_pack.client.model.EnderPackModel;
+import com.cursee.ender_pack.core.ClientConfigFabric;
 import com.cursee.ender_pack.core.network.input.OpenEnderPackKeyFabric;
 import com.cursee.ender_pack.core.registry.ModBlockEntities;
 import net.fabricmc.api.ClientModInitializer;
@@ -26,5 +27,7 @@ public class EnderPackClientFabric implements ClientModInitializer {
         LivingEntityFeatureRendererRegistrationCallback.EVENT.register((entityType, entityRenderer, registrationHelper, context) -> {
             if (entityRenderer instanceof PlayerRenderer) registrationHelper.register(new EnderPackPlayerRenderLayer(entityRenderer));
         });
+
+        ClientConfigFabric.onLoad();
     }
 }
