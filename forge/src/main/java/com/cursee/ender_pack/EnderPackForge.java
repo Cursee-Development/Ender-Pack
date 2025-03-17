@@ -2,9 +2,12 @@ package com.cursee.ender_pack;
 
 import com.cursee.ender_pack.core.ServerConfigForge;
 import com.cursee.ender_pack.core.network.ModMessagesForge;
+import com.cursee.ender_pack.core.network.packet.ForgeSyncS2CPacket;
 import com.cursee.ender_pack.core.registry.RegistryForge;
 import com.cursee.monolib.core.sailing.Sailing;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.level.LevelEvent;
 import net.minecraftforge.event.server.ServerAboutToStartEvent;
 import net.minecraftforge.event.server.ServerStartedEvent;
@@ -28,6 +31,10 @@ public class EnderPackForge {
         RegistryForge.register(EVENT_BUS);
         EnderPackForge.EVENT_BUS.addListener(this::onCommonSetup);
         MinecraftForge.EVENT_BUS.addListener((Consumer<LevelEvent.Load>) consumer -> ServerConfigForge.onLoad());
+        MinecraftForge.EVENT_BUS.addListener((Consumer<EntityJoinLevelEvent>) event -> {
+            if (!(event.getEntity() instanceof ServerPlayer player)) return;
+            ModMessagesForge.sendToPlayer(new ForgeSyncS2CPacket(), player);
+        });
 
     }
 

@@ -2,6 +2,7 @@ package com.cursee.ender_pack.client.renderer;
 
 import com.cursee.ender_pack.EnderPackClient;
 import com.cursee.ender_pack.client.model.EnderPackModel;
+import com.cursee.ender_pack.core.ClientConfiguredValues;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
 import net.minecraft.client.Minecraft;
@@ -22,6 +23,8 @@ public class EnderPackArmorRenderer implements ArmorRenderer {
     public void render(PoseStack poseStack, MultiBufferSource multiBufferSource, ItemStack stack, LivingEntity entity, EquipmentSlot slot, int light, HumanoidModel<LivingEntity> contextModel) {
         EntityModelSet modelSet = Minecraft.getInstance().getEntityModels();
         Model model = new EnderPackModel(modelSet.bakeLayer(EnderPackClient.ENDER_PACK_PLAYER_MODEL_LAYER_LOCATION));
+
+        if (!ClientConfiguredValues.RENDERS_IN_ARMOR_SLOT) return;
 
         poseStack.pushPose();
 

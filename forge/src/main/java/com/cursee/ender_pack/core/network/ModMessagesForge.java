@@ -2,6 +2,7 @@ package com.cursee.ender_pack.core.network;
 
 import com.cursee.ender_pack.Constants;
 import com.cursee.ender_pack.core.network.packet.ForgeOpenEnderPackC2SPacket;
+import com.cursee.ender_pack.core.network.packet.ForgeSyncS2CPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkDirection;
@@ -32,6 +33,12 @@ public class ModMessagesForge {
                 .decoder(ForgeOpenEnderPackC2SPacket::new)
                 .encoder(ForgeOpenEnderPackC2SPacket::toBytes)
                 .consumerMainThread(ForgeOpenEnderPackC2SPacket::handle)
+                .add();
+
+        net.messageBuilder(ForgeSyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(ForgeSyncS2CPacket::decode)
+                .encoder(ForgeSyncS2CPacket::encode)
+                .consumerMainThread(ForgeSyncS2CPacket::handle)
                 .add();
     }
 

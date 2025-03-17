@@ -27,42 +27,76 @@ public class EnderPackBlockEntityRenderer implements BlockEntityRenderer<EnderPa
     @Override
     public void render(EnderPackBlockEntity enderPack, float partialTick, PoseStack pose, MultiBufferSource buffer, int light, int overlay) {
 
-        if (!enderPack.hasLevel()) return;
-        final Direction FACING_DIRECTION = enderPack.getBlockState().getValue(EnderPackBlock.FACING);
+//        if (!enderPack.hasLevel()) return;
+//        final Direction FACING_DIRECTION = enderPack.getBlockState().getValue(EnderPackBlock.FACING);
+//        Vector3f offset = new Vector3f();
+//        float rotationDegrees = 0;
+//
+//        switch (FACING_DIRECTION) {
+//            case NORTH -> {
+//                offset.set(1f, 0.125f, 1f);
+//                rotationDegrees = 180;
+//                break;
+//            }
+//            case EAST -> {
+//                offset.set(0f, 0.125f, 1f);
+//                rotationDegrees = 90;
+//                break;
+//            }
+//            case SOUTH -> {
+//                offset.set(0.0f, 0.125f, 0f);
+//                break;
+//            }
+//            case WEST -> {
+//                offset.set(1f, 0.125f, 0f);
+//                rotationDegrees = 270;
+//                break;
+//            }
+//        }
+//
+//        pose.pushPose();
+//
+//        pose.translate(offset.x, offset.y, offset.z);
+//        pose.mulPose(com.mojang.math.Axis.YP.rotationDegrees(rotationDegrees));
+//        VertexConsumer vertexConsumer = buffer.getBuffer(RenderType.entityCutoutNoCull(EnderPackClient.ENDER_PACK_TEXTURE_LOCATION));
+//        pose.translate(0.5D, 0.3125D, 0.5625D);
+//        pose.mulPose(com.mojang.math.Axis.ZP.rotationDegrees(180));
+//        BAG_MODEL.render(pose, vertexConsumer, light, overlay);
+//
+//        pose.popPose();
+
+
         Vector3f offset = new Vector3f();
+
+        final Direction FACING_DIRECTION = enderPack.getBlockState().getValue(EnderPackBlock.FACING);
         float rotationDegrees = 0;
 
         switch (FACING_DIRECTION) {
             case NORTH -> {
-                offset.set(1f, 0.125f, 1f);
+                offset.set(0.0625f * 7.0f, 0, 0.0625f * 3.0f);
                 rotationDegrees = 180;
-                break;
             }
             case EAST -> {
-                offset.set(0f, 0.125f, 1f);
-                rotationDegrees = 90;
-                break;
+                offset.set(0.0625f * 7.0f, 0, 1.0f + (0.0625f * 3.0f));
+                rotationDegrees = 270;
             }
             case SOUTH -> {
-                offset.set(0.0f, 0.125f, 0f);
-                break;
+                offset.set(0.0625f * -9.0f, 0, 1.0f + (0.0625f * 3.0f));
             }
             case WEST -> {
-                offset.set(1f, 0.125f, 0f);
-                rotationDegrees = 270;
-                break;
+                offset.set(0.0625f * -9.0f, 0, 0.0625f * 3.0f);
+                rotationDegrees = 90;
             }
         }
 
-        pose.pushPose();
-
-        pose.translate(offset.x, offset.y, offset.z);
-        pose.mulPose(com.mojang.math.Axis.YP.rotationDegrees(rotationDegrees));
         VertexConsumer vertexConsumer = buffer.getBuffer(RenderType.entityCutoutNoCull(EnderPackClient.ENDER_PACK_TEXTURE_LOCATION));
-        pose.translate(0.5D, 0.3125D, 0.5625D);
-        pose.mulPose(com.mojang.math.Axis.ZP.rotationDegrees(180));
-        BAG_MODEL.render(pose, vertexConsumer, light, overlay);
 
+        pose.pushPose();
+        pose.mulPose(com.mojang.math.Axis.ZP.rotationDegrees(180)); // enderpack starts upside down??
+        pose.mulPose(com.mojang.math.Axis.YP.rotationDegrees(rotationDegrees)); // get our enderpack facing the right way
+        pose.translate(0, 0.0625f * -11.0f, 0); // bring enderpack out of the floor
+        pose.translate(offset.x, offset.y, offset.z);
+        BAG_MODEL.render(pose, vertexConsumer, light, overlay);
         pose.popPose();
     }
 }

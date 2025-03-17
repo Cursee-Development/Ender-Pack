@@ -5,6 +5,7 @@ import com.cursee.ender_pack.client.model.EnderPackModel;
 import com.cursee.ender_pack.client.renderer.EnderPackArmorRenderer;
 import com.cursee.ender_pack.client.renderer.EnderPackTrinketRenderer;
 import com.cursee.ender_pack.core.ClientConfigFabric;
+import com.cursee.ender_pack.core.network.ModMessagesFabric;
 import com.cursee.ender_pack.core.network.input.OpenEnderPackKeyFabric;
 import com.cursee.ender_pack.core.registry.ModBlockEntities;
 import com.cursee.ender_pack.core.registry.ModItems;
@@ -36,5 +37,7 @@ public class EnderPackClientFabric implements ClientModInitializer {
         TrinketRendererRegistry.registerRenderer(ModItems.ENDER_PACK, new EnderPackTrinketRenderer());
 
         ClientConfigFabric.onLoad();
+
+        ModMessagesFabric.registerS2CPackets();
     }
 }
