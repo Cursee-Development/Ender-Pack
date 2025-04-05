@@ -1,5 +1,6 @@
 package com.cursee.ender_pack;
 
+import com.cursee.ender_pack.client.NeoForgeClientConfigHandler;
 import com.cursee.ender_pack.core.network.ModMessagesNeoForge;
 import com.cursee.ender_pack.core.network.packet.NeoForgeOpenEnderPackC2SPacket;
 import com.cursee.ender_pack.core.registry.RegistryNeoForge;
@@ -17,6 +18,7 @@ public class EnderPackNeoForge {
     public EnderPackNeoForge(IEventBus modEventBus) {
         EnderPack.init();
         Sailing.register(Constants.MOD_ID, Constants.MOD_NAME, Constants.MOD_VERSION, Constants.MOD_PUBLISHER, Constants.MOD_URL);
+        NeoForgeClientConfigHandler.onLoad();
         EVENT_BUS = modEventBus;
         RegistryNeoForge.register(EVENT_BUS);
         EnderPackNeoForge.EVENT_BUS.addListener(this::onRegisterPayloadHandlers);

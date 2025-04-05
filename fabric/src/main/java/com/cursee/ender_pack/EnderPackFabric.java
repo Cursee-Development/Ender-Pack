@@ -1,5 +1,6 @@
 package com.cursee.ender_pack;
 
+import com.cursee.ender_pack.client.FabricClientConfigHandler;
 import com.cursee.ender_pack.core.network.ModMessagesFabric;
 import com.cursee.ender_pack.core.network.packet.FabricOpenEnderPackC2SPacket;
 import com.cursee.ender_pack.core.registry.RegistryFabric;
@@ -14,6 +15,7 @@ public class EnderPackFabric implements ModInitializer {
     public void onInitialize() {
         EnderPack.init();
         Sailing.register(Constants.MOD_ID, Constants.MOD_NAME, Constants.MOD_VERSION, Constants.MOD_PUBLISHER, Constants.MOD_URL);
+        FabricClientConfigHandler.onLoad();
         RegistryFabric.register();
         PayloadTypeRegistry.playC2S().register(ModMessagesFabric.PACKET_ID, ModMessagesFabric.PACKET_CODEC);
         ServerPlayNetworking.registerGlobalReceiver(ModMessagesFabric.PACKET_ID, FabricOpenEnderPackC2SPacket::handle);

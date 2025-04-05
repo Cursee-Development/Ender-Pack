@@ -1,5 +1,6 @@
 package com.cursee.ender_pack;
 
+import com.cursee.ender_pack.client.ForgeClientConfigHandler;
 import com.cursee.ender_pack.core.network.ModMessagesForge;
 import com.cursee.ender_pack.core.network.packet.ForgeOpenEnderPackC2SPacket;
 import com.cursee.ender_pack.core.registry.RegistryForge;
@@ -17,6 +18,7 @@ public class EnderPackForge {
     public EnderPackForge(FMLJavaModLoadingContext context) {
         EnderPack.init();
         Sailing.register(Constants.MOD_ID, Constants.MOD_NAME, Constants.MOD_VERSION, Constants.MOD_PUBLISHER, Constants.MOD_URL);
+        ForgeClientConfigHandler.onLoad();
         EVENT_BUS = context.getModEventBus();
         RegistryForge.register(EVENT_BUS);
         EnderPackForge.EVENT_BUS.addListener(this::onCommonSetup);

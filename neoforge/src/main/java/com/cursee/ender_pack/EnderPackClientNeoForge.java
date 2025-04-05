@@ -1,7 +1,7 @@
 package com.cursee.ender_pack;
 
 import com.cursee.ender_pack.client.block.entity.renderer.EnderPackBlockEntityRenderer;
-import com.cursee.ender_pack.client.entity.layer.EnderPackPlayerRenderLayer;
+import com.cursee.ender_pack.client.layer.EnderPackLayer;
 import com.cursee.ender_pack.client.model.EnderPackModel;
 import com.cursee.ender_pack.core.network.ModMessagesNeoForge;
 import com.cursee.ender_pack.core.network.input.OpenEnderPackKeyNeoForge;
@@ -52,8 +52,8 @@ public class EnderPackClientNeoForge {
 
         @SubscribeEvent
         public static void onAddLayersForEntityRenderers(EntityRenderersEvent.AddLayers event) {
-            EnderPackClientNeoForge.addLayerToPlayerSkin(event, "default", EnderPackPlayerRenderLayer::new);
-            EnderPackClientNeoForge.addLayerToPlayerSkin(event, "slim", EnderPackPlayerRenderLayer::new);
+            EnderPackClientNeoForge.addLayerToPlayerSkin(event, "default", EnderPackLayer::new);
+            EnderPackClientNeoForge.addLayerToPlayerSkin(event, "slim", EnderPackLayer::new);
         }
     }
 
