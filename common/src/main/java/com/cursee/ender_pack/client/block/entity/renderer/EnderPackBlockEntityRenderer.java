@@ -24,6 +24,9 @@ public class EnderPackBlockEntityRenderer implements BlockEntityRenderer<EnderPa
         this.BAG_MODEL = rootModelPart.getChild("ender_pack");
     }
 
+    private static final double PIXEL = 0.0625D;
+    private static final double BLOCK = 1.0D;
+
     @Override
     public void render(EnderPackBlockEntity enderPack, float partialTick, PoseStack pose, MultiBufferSource buffer, int light, int overlay) {
 
@@ -59,7 +62,7 @@ public class EnderPackBlockEntityRenderer implements BlockEntityRenderer<EnderPa
         pose.translate(offset.x, offset.y, offset.z);
         pose.mulPose(com.mojang.math.Axis.YP.rotationDegrees(rotationDegrees));
         VertexConsumer vertexConsumer = buffer.getBuffer(RenderType.entityCutoutNoCull(EnderPackClient.ENDER_PACK_TEXTURE_LOCATION));
-        pose.translate(0.5D, 0.3125D, 0.5625D);
+        pose.translate(BLOCK - (PIXEL * 7), PIXEL * 9, BLOCK + (PIXEL * 3));
         pose.mulPose(com.mojang.math.Axis.ZP.rotationDegrees(180));
         BAG_MODEL.render(pose, vertexConsumer, light, overlay);
 

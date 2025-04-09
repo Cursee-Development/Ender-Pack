@@ -1,6 +1,7 @@
 package com.cursee.ender_pack.client.renderer;
 
 import com.cursee.ender_pack.EnderPackClient;
+import com.cursee.ender_pack.client.ClientConfiguredValues;
 import com.cursee.ender_pack.client.model.EnderPackModel;
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.emi.trinkets.api.SlotReference;
@@ -21,6 +22,9 @@ public class EnderPackTrinketRenderer implements TrinketRenderer {
 
     @Override
     public void render(ItemStack itemStack, SlotReference slotReference, EntityModel<? extends LivingEntity> entityModel, PoseStack poseStack, MultiBufferSource multiBufferSource, int light, LivingEntity entity, float v, float v1, float v2, float v3, float v4, float v5) {
+
+        if (!ClientConfiguredValues.RENDERS_IN_EXTRA_SLOT) return;
+
         EntityModelSet modelSet = Minecraft.getInstance().getEntityModels();
         Model model = new EnderPackModel(modelSet.bakeLayer(EnderPackClient.ENDER_PACK_PLAYER_MODEL_LAYER_LOCATION));
 
